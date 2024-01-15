@@ -11,12 +11,15 @@ public class FillFormTest {
     @BeforeAll
     static void beforeAll() {
         Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
     }
 
     @Test
     void successfulFillFormTest() {
         open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         $("#firstName").setValue("Anastasiya");
         $("#lastName").setValue("Shpakova");
         $("#userEmail").setValue("test1@bk.ru");
@@ -30,25 +33,22 @@ public class FillFormTest {
         $("#hobbiesWrapper").$(byText("Music")).click();
         $("#uploadPicture").uploadFromClasspath("nature2.jpg");
         $("#currentAddress").setValue("Testing 12-35");
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
         $("#state").click();
         $("#stateCity-wrapper").$(byText("Haryana")).click();
         $("#city").click();
         $("#stateCity-wrapper").$(byText("Panipat")).click();
         $("#submit").click();
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(
-                text("Anastasiya Shpakova"),
-                text("test1@bk.ru"),
-                text("Female"),
-                text("9991002030"),
-                text("22 September,1987"),
-                text("Maths"),
-                text("Music"),
-                text("nature2.jpg"),
-                text("Testing 12-35"),
-                text("Haryana Panipat"));
+        $(".table-responsive").shouldHave(text("Anastasiya Shpakova"));
+        $(".table-responsive").shouldHave(text("test1@bk.ru"));
+        $(".table-responsive").shouldHave(text("Female"));
+        $(".table-responsive").shouldHave(text("9991002030"));
+        $(".table-responsive").shouldHave(text("22 September,1987"));
+        $(".table-responsive").shouldHave(text("Maths"));
+        $(".table-responsive").shouldHave(text("Music"));
+        $(".table-responsive").shouldHave(text("nature2.jpg"));
+        $(".table-responsive").shouldHave(text("Testing 12-35"));
+        $(".table-responsive").shouldHave(text("Haryana Panipat"));
     }
 
     //{
